@@ -1,11 +1,14 @@
 package eu.epitech.serverandroid.beans;
 
-public class UserClientInfo {
+import java.io.Serializable;
+
+public class UserClientInfo implements Serializable{
     
     private String token;
     private String eMail;
     private String url;
     private String name;
+    private String message;
     
     public UserClientInfo() {
     }
@@ -37,6 +40,14 @@ public class UserClientInfo {
     }
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
     }
     
 }
