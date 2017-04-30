@@ -11,4 +11,33 @@ package eu.epitech.serverandroid.beans;
  */
 public class Mark {
     
+    private int stars;
+    private String description;
+    private int idDish;
+
+    public int getStars() {
+        return stars;
+    }
+
+    public void setStars(int stars) {
+        this.stars = stars;
+    }
+
+    public int getIdDish() {
+        return idDish;
+    }
+
+    public void setIdDish(int idDish) {
+        this.idDish = idDish;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+    
+    
 }

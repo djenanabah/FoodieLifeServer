@@ -11,4 +11,23 @@ package eu.epitech.serverandroid.beans;
  */
 public class Dish {
     
+    private String photo;
+    private String description;
+    private int idRestaurant;
+
+    public String getPhoto() {
+        return photo;
+    }
+
+    public void setPhoto(String photo) {
+        this.photo = photo;
+    }
+
+    public int getIdRestaurant() {
+        return idRestaurant;
+    }
+
+    public void setIdRestaurant(int idRestaurant) {
+        this.idRestaurant = idRestaurant;
+    }
 }

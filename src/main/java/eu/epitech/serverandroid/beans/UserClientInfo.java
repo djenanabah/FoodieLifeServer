@@ -1,19 +1,12 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package eu.epitech.serverandroid.beans;
 
-/**
- *
- * @author Vincent RAGOT
- */
 public class UserClientInfo {
     
-    private String eMail;
     private String token;
-
+    private String eMail;
+    private String url;
+    private String name;
+    
     public UserClientInfo() {
     }
 
@@ -31,6 +24,19 @@ public class UserClientInfo {
 
     public void setToken(String token) {
         this.token = token;
+    }
+
+    public String getUrl() {
+        return url;
+    }
+    public void setUrl(String url) {
+        this.url = url;
+    }
+    public String getName() {
+        return name;
+    }
+    public void setName(String name) {
+        this.name = name;
     }
     
 }
