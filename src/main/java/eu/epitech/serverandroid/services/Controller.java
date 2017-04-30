@@ -10,6 +10,7 @@ import eu.epitech.serverandroid.beans.Mark;
 import eu.epitech.serverandroid.beans.Params;
 import eu.epitech.serverandroid.beans.Restaurant;
 import eu.epitech.serverandroid.beans.UserClientInfo;
+import eu.epitech.serverandroid.dao.ConnectionDao;
 import eu.epitech.serverandroid.dao.DishDao;
 import eu.epitech.serverandroid.dao.MarkDao;
 import eu.epitech.serverandroid.dao.RestaurantDao;
@@ -24,7 +25,13 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 public class Controller {
-
+    
+    @RequestMapping(value = "/login", method = RequestMethod.POST)
+    private UserClientInfo connection(@RequestBody UserClientInfo info) {
+        ConnectionDao dao = new ConnectionDao();
+        return (dao.getConnection(info));
+    }
+    
     @RequestMapping(value = "/restaurant", method = RequestMethod.POST)
     private String getAllRestaurant(@RequestBody UserClientInfo info) {
         RestaurantDao dao = new RestaurantDao();

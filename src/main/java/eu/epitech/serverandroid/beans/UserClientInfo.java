@@ -6,7 +6,7 @@ public class UserClientInfo implements Serializable{
     
     private String token;
     private String eMail;
-    private String url;
+    private String pictureUrl;
     private String name;
     private String message;
     
@@ -29,11 +29,11 @@ public class UserClientInfo implements Serializable{
         this.token = token;
     }
 
-    public String getUrl() {
-        return url;
+    public String getPictureUrl() {
+        return pictureUrl;
     }
-    public void setUrl(String url) {
-        this.url = url;
+    public void setPictureUrl(String pictureUrl) {
+        this.pictureUrl = pictureUrl;
     }
     public String getName() {
         return name;
