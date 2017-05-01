@@ -27,7 +27,7 @@ public class RestaurantDao {
         }
         response.setMessage(cd.checkConnection(info));
         if (!response.getMessage().equals("200")) {
-            // get all friends
+            getAllFriends();
             // for all friends -> get all mark -> get all dish -> get all restaurant
         }
         return response;
@@ -56,6 +56,10 @@ public class RestaurantDao {
             }
         }
         return response;
+    }
+
+    private void getAllFriends() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
 }
