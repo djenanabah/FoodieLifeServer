@@ -16,7 +16,7 @@ public class MainServices {
     }
     
     @RequestMapping(value = "/login", method = RequestMethod.POST)
-    private UserClientInfo connection(@RequestBody UserClientInfo info) {
+    private String connection(@RequestBody UserClientInfo info) {
         System.out.println("token :" + info.getToken());
         ConnectionDao dao = new ConnectionDao();
         return (dao.getConnection(info));

@@ -7,15 +7,18 @@ package eu.epitech.serverandroid.tools;
 
 import com.google.api.client.googleapis.auth.oauth2.GoogleIdToken;
 import com.google.api.client.googleapis.auth.oauth2.GoogleIdTokenVerifier;
+import com.google.api.client.http.HttpRequestInitializer;
 import com.google.api.client.http.HttpTransport;
 import com.google.api.client.http.javanet.NetHttpTransport;
 import com.google.api.client.json.jackson2.JacksonFactory;
 import com.google.api.services.people.v1.PeopleService;
+import com.google.api.services.people.v1.PeopleService.People;
 import com.google.api.services.people.v1.model.ListConnectionsResponse;
 import com.google.api.services.people.v1.model.Person;
 import eu.epitech.serverandroid.beans.UserClientInfo;
 import java.io.IOException;
 import java.security.GeneralSecurityException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -74,24 +77,33 @@ public class GoogleTools {
         return ("200");
     }
     
-    public void getAllFriend(UserClientInfo info) {
+    public ArrayList<String> getAllFriend(UserClientInfo info) {
+        ArrayList<String> list = new ArrayList<>();
+        
         try {
             idToken = verifier.verify(info.getToken());
         } catch (GeneralSecurityException | IOException ex) {
             ex.printStackTrace();
+            return list;
         }
- /*       if (idToken != null) {
+        if (idToken != null) {
             GoogleIdToken.Payload payload = idToken.getPayload();
             String userId = payload.getSubject();
             ListConnectionsResponse response;
             try {
-                ListConnectionsResponse response = PeopleService.people().connections().list("people/me").execute();
+                PeopleService peopleService = new PeopleService.Builder(transport, jsonFactory, (HttpRequestInitializer) verifier).build();
+                response = peopleService.people().connections().list(userId).execute();
                 List<Person> connections = response.getConnections();
+                for (Person person: connections) {
+                    //list.add(person.getNames().get(0));
+                }
             } catch (IOException ex) {
-                Logger.getLogger(GoogleTools.class.getName()).log(Level.SEVERE, null, ex);
+                ex.printStackTrace();
+                return list;
             }
         } else {
-            
-        }*/
+            return list;
+        }
+        return list;
     }
 }
