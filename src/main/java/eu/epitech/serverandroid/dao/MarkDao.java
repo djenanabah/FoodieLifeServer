@@ -1,19 +1,18 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package eu.epitech.serverandroid.dao;
 
 import eu.epitech.serverandroid.beans.Dish;
 import eu.epitech.serverandroid.beans.Mark;
 import eu.epitech.serverandroid.beans.Params;
+import eu.epitech.serverandroid.tools.SessionUtil;
+import org.hibernate.SessionFactory;
 
-/**
- *
- * @author Vincent RAGOT
- */
 public class MarkDao {
+
+    private final SessionFactory sessionFactory;
+
+    public MarkDao() {
+        this.sessionFactory = SessionUtil.getSession();
+    }
 
     public String getAllMark(Params<Dish> params) {
         return null;
@@ -22,5 +21,5 @@ public class MarkDao {
     public String addMark(Params<Mark> params) {
         return null;
     }
-    
+
 }

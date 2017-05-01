@@ -1,21 +1,17 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package eu.epitech.serverandroid.dao;
 
+import eu.epitech.serverandroid.tools.SessionUtil;
 import eu.epitech.serverandroid.beans.Params;
 import eu.epitech.serverandroid.beans.Restaurant;
 import eu.epitech.serverandroid.beans.UserClientInfo;
+import org.hibernate.SessionFactory;
 
-/**
- *
- * @author Vincent RAGOT
- */
 public class RestaurantDao {
 
+    private final SessionFactory sessionFactory;
+    
     public RestaurantDao() {
+        this.sessionFactory = SessionUtil.getSession();
     }
     
     public String getAllRestaurant(UserClientInfo info) {
