@@ -21,9 +21,4 @@ public class MainServices {
         return (dao.getConnection(info));
     }
     
-    @RequestMapping(value = "/error", method = RequestMethod.POST)
-    private String connection() {
-        return ("500");
-    }
-    
 }

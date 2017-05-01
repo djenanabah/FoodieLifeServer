@@ -15,25 +15,24 @@ public class ConnectionDao {
 
     private static final JacksonFactory jsonFactory = new JacksonFactory();
     private static final HttpTransport transport = new NetHttpTransport();
+    private GoogleIdTokenVerifier verifier;
+    private GoogleIdToken idToken;
 
     public ConnectionDao() {
+        verifier = new GoogleIdTokenVerifier.Builder(transport, jsonFactory).build();
+        idToken = null;
     }
 
     public UserClientInfo getConnection(UserClientInfo info) {
-        GoogleIdTokenVerifier verifier = new GoogleIdTokenVerifier.Builder(transport, jsonFactory).build();
-        GoogleIdToken idToken = null;
-        
         try {
             idToken = verifier.verify(info.getToken());
         } catch (GeneralSecurityException | IOException ex) {
+            ex.printStackTrace();
             info.setMessage("500");
-            return(info);
+            return (info);
         }
         if (idToken != null) {
             Payload payload = idToken.getPayload();
-
-            String userId = payload.getSubject();
-            System.out.println("User ID: " + userId);
 
             info.setName((String) payload.get("name"));
             info.setPictureUrl((String) payload.get("picture"));
@@ -45,4 +44,23 @@ public class ConnectionDao {
         return (info);
     }
 
+    public String checkConnection(UserClientInfo info) {
+        try {
+            idToken = verifier.verify(info.getToken());
+        } catch (GeneralSecurityException | IOException ex) {
+            ex.printStackTrace();
+            return ("500");
+        }
+        if (idToken != null) {
+            Payload payload = idToken.getPayload();
+
+            if ((!info.getName().equals((String) payload.get("name")))
+                    || (!info.geteMail().equals(payload.getEmail()))) {
+                return ("400");
+            }
+        } else {
+            return ("400");
+        }
+        return ("200");
+    }
 }
