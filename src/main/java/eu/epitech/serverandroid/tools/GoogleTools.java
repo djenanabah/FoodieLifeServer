@@ -37,7 +37,6 @@ public class GoogleTools {
 
     public UserClientInfo Connect(UserClientInfo info) {
         try {
-            System.out.println("tok: " + info.getToken());
             idToken = verifier.verify(info.getToken());
         } catch (GeneralSecurityException | IOException ex) {
             ex.printStackTrace();

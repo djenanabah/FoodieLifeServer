@@ -1,9 +1,10 @@
 package eu.epitech.serverandroid.dao;
 
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import eu.epitech.serverandroid.beans.UserClientInfo;
 import eu.epitech.serverandroid.tools.GoogleTools;
-import eu.epitech.serverandroid.tools.ParserJson;
 
 public class ConnectionDao {
 
@@ -12,22 +13,26 @@ public class ConnectionDao {
 
     public String getConnection(UserClientInfo info) {
         GoogleTools google = new GoogleTools();
-        ParserJson<UserClientInfo> parser = new ParserJson<>();
+        ObjectMapper mapper = new ObjectMapper();
+        String response = null;
         
         if ((info == null) || (info.getToken() == null)) {
-            info.setMessage("400");
-            parser.setValue(info);
-            return (parser.toString());
+            return (null);
         }
-        parser.setValue(google.Connect(info));
-        return (parser.toString());
+        info = google.Connect(info);
+
+        try {
+            response = mapper.writeValueAsString(info);
+        } catch (JsonProcessingException ex) {
+        }
+        return (response);
     }
 
     public String checkConnection(UserClientInfo info) {
         GoogleTools google = new GoogleTools();
         
         if ((info == null) || (info.getToken() == null)) {
-            return ("400");
+            return (null);
         }
         return (google.checkConnect(info));
     }
