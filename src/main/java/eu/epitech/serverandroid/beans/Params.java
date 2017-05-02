@@ -1,7 +1,6 @@
 package eu.epitech.serverandroid.beans;
 
 import java.io.Serializable;
-import java.util.List;
 
 /**
  *
@@ -11,7 +10,7 @@ import java.util.List;
 public class Params<T> implements Serializable {
 
     private UserClientInfo user;
-    private List<T> list;
+    private T value;
 
     /**
      * Constructor
@@ -36,15 +35,15 @@ public class Params<T> implements Serializable {
     /**
      * @return the list
      */
-    public List<T> getList() {
-        return list;
+    public T getValue() {
+        return value;
     }
 
     /**
-     * @param list the list to set
+     * @param value the list to set
      */
-    public void setList(List<T> list) {
-        this.list = list;
+    public void setValue(T value) {
+        this.value = value;
     }
 
 }

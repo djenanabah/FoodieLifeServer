@@ -49,7 +49,7 @@ public class MarkDao {
                 Query query = session.
                         createQuery("from Mark where idDish = :id");
                 query.setString("id",
-                        Integer.toString(params.getList().get(0).getIdDish()));
+                        Integer.toString(params.getValue().getIdDish()));
                 response.setList(query.list());
                 session.close();
             } catch (Exception e) {
@@ -85,7 +85,7 @@ public class MarkDao {
             try {
                 Session session = sessionFactory.openSession();
                 Transaction transaction = session.beginTransaction();
-                session.save(params.getList().get(0));
+                session.save(params.getValue());
                 transaction.commit();
                 session.close();
             } catch (Exception e) {

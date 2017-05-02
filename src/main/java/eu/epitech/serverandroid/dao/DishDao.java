@@ -50,7 +50,7 @@ public class DishDao {
                         createQuery("from Dish where idRestaurant = :id");
                 query.setString("id",
                         Integer.toString(
-                                params.getList().get(0).getIdRestaurant()));
+                                params.getValue().getIdRestaurant()));
                 response.setList(query.list());
                 session.close();
             } catch (Exception e) {
@@ -86,7 +86,7 @@ public class DishDao {
             try {
                 Session session = sessionFactory.openSession();
                 Transaction transaction = session.beginTransaction();
-                session.save(params.getList().get(0));
+                session.save(params.getValue());
                 transaction.commit();
                 session.close();
             } catch (Exception e) {

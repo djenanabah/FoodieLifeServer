@@ -103,7 +103,7 @@ public class RestaurantDao {
                 try {
                     Session session = sessionFactory.openSession();
                     Transaction transaction = session.beginTransaction();
-                    session.save(params.getList().get(0));
+                    session.save(params.getValue());
                     transaction.commit();
                     session.close();
                 } catch (HibernateException e) {
