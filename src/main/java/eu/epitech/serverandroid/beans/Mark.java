@@ -6,25 +6,35 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+/**
+ *
+ * @author Vincent RAGOT
+ */
 @Entity
-@Table(name="Mark")
-public class Mark implements Serializable{
-    
+@Table(name = "Mark")
+public class Mark implements Serializable {
+
     @Id
     @Column(name = "idMark", unique = true)
     private int idMark;
-    
+
     @Column(name = "stars", nullable = false)
     private int stars;
-    
+
     @Column(name = "commentaire", nullable = true)
     private String commentaire;
-    
+
     @Column(name = "idDish", nullable = false)
     private int idDish;
-    
+
     @Column(name = "user", nullable = false)
     private String user;
+
+    /**
+     * Constructor
+     */
+    public Mark() {
+    }
 
     /**
      * @return the idMark

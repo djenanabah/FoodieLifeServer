@@ -12,7 +12,6 @@ import com.google.api.client.http.HttpTransport;
 import com.google.api.client.http.javanet.NetHttpTransport;
 import com.google.api.client.json.jackson2.JacksonFactory;
 import com.google.api.services.people.v1.PeopleService;
-import com.google.api.services.people.v1.PeopleService.People;
 import com.google.api.services.people.v1.model.ListConnectionsResponse;
 import com.google.api.services.people.v1.model.Person;
 import eu.epitech.serverandroid.beans.UserClientInfo;
@@ -20,9 +19,11 @@ import java.io.IOException;
 import java.security.GeneralSecurityException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
+/**
+ *
+ * @author Vincent RAGOT
+ */
 public class GoogleTools {
 
     private static final JacksonFactory jsonFactory = new JacksonFactory();
@@ -30,11 +31,20 @@ public class GoogleTools {
     private final GoogleIdTokenVerifier verifier;
     private GoogleIdToken idToken;
 
+    /**
+     * Constructor
+     */
     public GoogleTools() {
-        verifier = new GoogleIdTokenVerifier.Builder(transport, jsonFactory).build();
+        verifier = new GoogleIdTokenVerifier.Builder(transport, jsonFactory).
+                build();
         idToken = null;
     }
 
+    /**
+     *
+     * @param info contains idToken
+     * @return all info about user
+     */
     public UserClientInfo Connect(UserClientInfo info) {
         try {
             idToken = verifier.verify(info.getToken());
@@ -51,11 +61,16 @@ public class GoogleTools {
             info.seteMail(payload.getEmail());
             info.setMessage("200");
         } else {
-            info.setMessage("400");
+            info.setMessage("401");
         }
         return (info);
     }
 
+    /**
+     *
+     * @param info contains user's info
+     * @return String response if connection is available or not 
+     */
     public String checkConnect(UserClientInfo info) {
         try {
             idToken = verifier.verify(info.getToken());
@@ -68,41 +83,49 @@ public class GoogleTools {
 
             if ((!info.getName().equals((String) payload.get("name")))
                     || (!info.geteMail().equals(payload.getEmail()))) {
-                return ("400");
+                return ("402");
             }
         } else {
-            return ("400");
+            return ("401");
         }
         return ("200");
     }
     
-    public ArrayList<String> getAllFriend(UserClientInfo info) {
+    /**
+     *
+     * @param info contains user's info
+     * @return list off all friens
+     */
+    public ArrayList<String> getAllFriends(UserClientInfo info) {
         ArrayList<String> list = new ArrayList<>();
         
         try {
             idToken = verifier.verify(info.getToken());
         } catch (GeneralSecurityException | IOException ex) {
             ex.printStackTrace();
-            return list;
+            return (null);
         }
         if (idToken != null) {
             GoogleIdToken.Payload payload = idToken.getPayload();
             String userId = payload.getSubject();
             ListConnectionsResponse response;
             try {
-                PeopleService peopleService = new PeopleService.Builder(transport, jsonFactory, (HttpRequestInitializer) verifier).build();
-                response = peopleService.people().connections().list(userId).execute();
+                PeopleService peopleService = new PeopleService.
+                        Builder(transport, jsonFactory,
+                                (HttpRequestInitializer) verifier).build();
+                response = peopleService.people().connections().
+                        list(userId).execute();
                 List<Person> connections = response.getConnections();
-                for (Person person: connections) {
-                    //list.add(person.getNames().get(0));
-                }
+                connections.forEach((person) -> {
+                    list.add(person.getNames().get(0).getDisplayName());
+                });
             } catch (IOException ex) {
                 ex.printStackTrace();
-                return list;
+                return (null);
             }
         } else {
-            return list;
+            return (null);
         }
-        return list;
+        return (list);
     }
 }

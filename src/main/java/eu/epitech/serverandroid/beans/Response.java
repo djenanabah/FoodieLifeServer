@@ -2,11 +2,19 @@ package eu.epitech.serverandroid.beans;
 
 import java.util.List;
 
+/**
+ *
+ * @author Vincent RAGOT
+ * @param <T> Template for any class
+ */
 public class Response<T> {
-    
+
     private String message;
     private List<T> list;
 
+    /**
+     * Constructor
+     */
     public Response() {
     }
 
@@ -37,6 +45,5 @@ public class Response<T> {
     public void setList(List<T> list) {
         this.list = list;
     }
-    
-    
+
 }

@@ -6,6 +6,10 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+/**
+ *
+ * @author Vincent RAGOT
+ */
 @Entity
 @Table(name = "Dish")
 public class Dish implements Serializable {
@@ -19,6 +23,12 @@ public class Dish implements Serializable {
     @Id
     @Column(name = "idRestaurant", unique = true)
     private int idRestaurant;
+
+    /**
+     * Constructor
+     */
+    public Dish() {
+    }
 
     /**
      * @return the photo

@@ -6,6 +6,10 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+/**
+ *
+ * @author Vincent RAGOT
+ */
 @Entity
 @Table(name = "Dish")
 public class Restaurant implements Serializable {
@@ -22,6 +26,18 @@ public class Restaurant implements Serializable {
 
     @Column(name = "description", nullable = true)
     private String description;
+
+    @Column(name = "longitude", nullable = false)
+    private String longitude;
+
+    @Column(name = "lattitude", nullable = false)
+    private String lattitude;
+
+    /**
+     * Constructor
+     */
+    public Restaurant() {
+    }
 
     /**
      * @return the idRestaurant
@@ -77,6 +93,34 @@ public class Restaurant implements Serializable {
      */
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    /**
+     * @return the longitude
+     */
+    public String getLongitude() {
+        return longitude;
+    }
+
+    /**
+     * @param longitude the longitude to set
+     */
+    public void setLongitude(String longitude) {
+        this.longitude = longitude;
+    }
+
+    /**
+     * @return the lattitude
+     */
+    public String getLattitude() {
+        return lattitude;
+    }
+
+    /**
+     * @param lattitude the lattitude to set
+     */
+    public void setLattitude(String lattitude) {
+        this.lattitude = lattitude;
     }
 
 }
