@@ -5,6 +5,7 @@ import eu.epitech.serverandroid.beans.Restaurant;
 import eu.epitech.serverandroid.beans.UserClientInfo;
 import eu.epitech.serverandroid.dao.RestaurantDao;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -19,8 +20,9 @@ public class RestaurantServices {
     }
 
     @RequestMapping(value = "/restaurant/add", method = RequestMethod.POST)
-    public String addRestaurant(@ModelAttribute Params<Restaurant> params) {
+    public String addRestaurant(@ModelAttribute Restaurant params) {
+        System.out.println("test");
         RestaurantDao dao = new RestaurantDao();
-        return (dao.addRestaurant(params));
+        return (dao.addRestaurant(new Params<>()));
     }
 }

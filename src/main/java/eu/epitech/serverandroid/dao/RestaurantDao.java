@@ -96,11 +96,17 @@ public class RestaurantDao {
         
         if ((params == null) || (params.getUser() == null) ||
                 (params.getUser().getToken() == null)) {
+            System.out.println("test");
+            System.out.println(params);
+            System.out.println(params.getUser());
+            System.out.println(params.getUser().getToken());
             response.setMessage("400");
         } else {
             response.setMessage(cd.checkConnection(params.getUser()));
+            System.out.println(response.getMessage());
             if (!response.getMessage().equals("200")) {
                 try {
+                    System.out.println("test1");
                     Session session = sessionFactory.openSession();
                     Transaction transaction = session.beginTransaction();
                     session.save(params.getValue());
@@ -116,6 +122,7 @@ public class RestaurantDao {
             resp = mapper.writeValueAsString(response);
         } catch (JsonProcessingException ex) {
             ex.printStackTrace();
+            System.out.println("test2");
             return (null);
         }
         return (resp);

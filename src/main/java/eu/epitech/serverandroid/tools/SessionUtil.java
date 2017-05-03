@@ -26,7 +26,6 @@ public class SessionUtil {
 
             sessionFactory = configuration.buildSessionFactory(serviceRegistry);
         }
-
         return (sessionFactory);
     }
 }

@@ -10,6 +10,8 @@
     <property name="hibernate.show_sql">true</property>
     <property name="hibernate.format_sql">true</property>
     <!--   <property name="hibernate.hbm2ddl.auto">create</property> -->
-    <mapping class="eu.epitech.rss.Feed"/>
+    <mapping class="eu.epitech.serverandroid.beans.Restaurant"/>
+    <mapping class="eu.epitech.serverandroid.beans.Dish"/>
+    <mapping class="eu.epitech.serverandroid.beans.Mark"/>
   </session-factory>
 </hibernate-configuration>
