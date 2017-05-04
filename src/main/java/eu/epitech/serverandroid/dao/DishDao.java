@@ -6,12 +6,14 @@ import eu.epitech.serverandroid.beans.Dish;
 import eu.epitech.serverandroid.beans.Params;
 import eu.epitech.serverandroid.beans.Response;
 import eu.epitech.serverandroid.tools.SessionUtil;
-import java.util.ArrayList;
-import java.util.List;
+import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
+import org.springframework.web.multipart.MultipartFile;
 
 /**
  *
@@ -102,27 +104,4 @@ public class DishDao {
         }
         return (resp);
     }
-
-    /**
-     *
-     * @param dish object Dish
-     * @return idRestaurant of a Dish
-     */
-    public Integer getRestaurantDish(int dish) {
-        Integer response;
-        Dish dishObject;
-        try {
-            Session session = sessionFactory.openSession();
-            Query query = session.createQuery("from Dish where idDish = :id");
-            query.setString("id", Integer.toString(dish));
-            dishObject = (Dish) query.list().get(0);
-            response = dishObject.getIdRestaurant();
-            session.close();
-        } catch (Exception e) {
-            e.printStackTrace();
-            return (null);
-        }
-        return (response);
-    }
-
 }
