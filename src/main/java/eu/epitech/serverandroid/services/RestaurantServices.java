@@ -14,15 +14,16 @@ import org.springframework.web.bind.annotation.RestController;
 public class RestaurantServices {
 
     @RequestMapping(value = "/restaurant", method = RequestMethod.POST)
-    private String getAllRestaurant(@ModelAttribute UserClientInfo info) {
+    private String getAllRestaurant(@RequestBody UserClientInfo info) {
         RestaurantDao dao = new RestaurantDao();
         return (dao.getAllRestaurant(info));
     }
 
     @RequestMapping(value = "/restaurant/add", method = RequestMethod.POST)
-    public String addRestaurant(@ModelAttribute Restaurant params) {
+    public String addRestaurant(@RequestBody Params<Restaurant> params) {
         System.out.println("test");
+        System.out.println(params.getValue());
         RestaurantDao dao = new RestaurantDao();
-        return (dao.addRestaurant(new Params<>()));
+        return (dao.addRestaurant(params));
     }
 }

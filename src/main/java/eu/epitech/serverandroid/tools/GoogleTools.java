@@ -80,15 +80,16 @@ public class GoogleTools {
         }
         if (idToken != null) {
             GoogleIdToken.Payload payload = idToken.getPayload();
-
-            if ((!info.getName().equals((String) payload.get("name")))
-                    || (!info.geteMail().equals(payload.getEmail()))) {
+System.out.println("name: " + info.getName() + ", attendu: " + (String) payload.get("name"));
+                System.out.println("email: " + info.geteMail() + ", attendu: " + payload.getEmail());
+            if (info.getName().equals((String) payload.get("name"))){
+                return ("200");
+            } else {
                 return ("402");
             }
         } else {
             return ("401");
         }
-        return ("200");
     }
     
     /**

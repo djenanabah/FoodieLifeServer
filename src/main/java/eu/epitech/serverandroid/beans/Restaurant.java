@@ -11,7 +11,7 @@ import javax.persistence.Table;
  * @author Vincent RAGOT
  */
 @Entity
-@Table(name = "Dish")
+@Table(name = "Restaurant")
 public class Restaurant implements Serializable {
 
     @Id
@@ -28,10 +28,10 @@ public class Restaurant implements Serializable {
     private String description;
 
     @Column(name = "longitude", nullable = false)
-    private String longitude;
+    private Double longitude;
 
-    @Column(name = "lattitude", nullable = false)
-    private String lattitude;
+    @Column(name = "latitude", nullable = false)
+    private Double latitude;
 
     /**
      * Constructor
@@ -98,29 +98,29 @@ public class Restaurant implements Serializable {
     /**
      * @return the longitude
      */
-    public String getLongitude() {
+    public Double getLongitude() {
         return longitude;
     }
 
     /**
      * @param longitude the longitude to set
      */
-    public void setLongitude(String longitude) {
+    public void setLongitude(Double longitude) {
         this.longitude = longitude;
     }
 
     /**
      * @return the lattitude
      */
-    public String getLattitude() {
-        return lattitude;
+    public Double getLatitude() {
+        return latitude;
     }
 
     /**
      * @param lattitude the lattitude to set
      */
-    public void setLattitude(String lattitude) {
-        this.lattitude = lattitude;
+    public void setLatitude(Double latitude) {
+        this.latitude = latitude;
     }
 
 }

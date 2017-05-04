@@ -22,16 +22,16 @@ import org.hibernate.Transaction;
  * @author Vincent RAGOT
  */
 public class RestaurantDao {
-    
+
     private final SessionFactory sessionFactory;
-    
+
     /**
      * Constructor
      */
     public RestaurantDao() {
         this.sessionFactory = SessionUtil.getSession();
     }
-    
+
     /**
      *
      * @param info contains user's info
@@ -39,39 +39,27 @@ public class RestaurantDao {
      */
     public String getAllRestaurant(UserClientInfo info) {
         ConnectionDao cd = new ConnectionDao();
-        MarkDao md = new MarkDao();
-        DishDao dd = new DishDao();
         Response<Restaurant> response = new Response<>();
-        GoogleTools google = new GoogleTools();
-        ArrayList<String> listFriends;
-        ArrayList<Integer> listRestaurantFriends = new ArrayList<>();
-        ArrayList<Integer> listDishFriends = new ArrayList<>();
-        ArrayList<Restaurant> listResponse = new ArrayList<>();
         ObjectMapper mapper = new ObjectMapper();
         String resp;
-        
+
         if ((info == null) || (info.getToken() == null)) {
             response.setMessage("400");
         } else {
             response.setMessage(cd.checkConnection(info));
-            if (!response.getMessage().equals("200")) {
-                listFriends = google.getAllFriends(info);
-                if ((listFriends != null) && (listFriends.size() > 0)) {
-                    for (String friend : listFriends) {
-                        listDishFriends.addAll(md.getAllDishFriends(friend));
-                    }
-                    listDishFriends = clearList(listDishFriends);
-                    for (int dish : listDishFriends) {
-                        listRestaurantFriends.add(dd.getRestaurantDish(dish));
-                    }
-                    listRestaurantFriends = clearList(listRestaurantFriends);
-                    for (int id : listRestaurantFriends) {
-                        listResponse.add(getRestaurant(id));
-                    }
-                    response.setList(listResponse);
-                } else {
-                    response.setMessage("403");
+            if (response.getMessage().equals("200")) {
+                try {
+                    Session session = sessionFactory.openSession();
+                    Query query = session.
+                            createQuery("from Restaurant");
+                    response.setList(query.list());
+                    session.close();
+                } catch (HibernateException e) {
+                    e.printStackTrace();
+                    response.setMessage("500");
                 }
+            } else {
+                response.setMessage("403");
             }
         }
         try {
@@ -82,10 +70,11 @@ public class RestaurantDao {
         }
         return (resp);
     }
-    
+
     /**
      *
-     * @param params contains user's info and object of class Restaurant to insert
+     * @param params contains user's info and object of class Restaurant to
+     * insert
      * @return JSON's String contains response of insert
      */
     public String addRestaurant(Params<Restaurant> params) {
@@ -93,73 +82,33 @@ public class RestaurantDao {
         Response<Restaurant> response = new Response<>();
         ObjectMapper mapper = new ObjectMapper();
         String resp;
-        
-        if ((params == null) || (params.getUser() == null) ||
+
+        if ((params.getUser() == null) ||
                 (params.getUser().getToken() == null)) {
-            System.out.println("test");
-            System.out.println(params);
-            System.out.println(params.getUser());
-            System.out.println(params.getUser().getToken());
             response.setMessage("400");
         } else {
             response.setMessage(cd.checkConnection(params.getUser()));
-            System.out.println(response.getMessage());
-            if (!response.getMessage().equals("200")) {
+            if (response.getMessage().equals("200")) {
                 try {
-                    System.out.println("test1");
                     Session session = sessionFactory.openSession();
                     Transaction transaction = session.beginTransaction();
-                    session.save(params.getValue());
+                    session.save(params);
                     transaction.commit();
                     session.close();
                 } catch (HibernateException e) {
                     e.printStackTrace();
                     response.setMessage("500");
                 }
+            } else {
+                response.setMessage("403");
             }
         }
         try {
             resp = mapper.writeValueAsString(response);
         } catch (JsonProcessingException ex) {
             ex.printStackTrace();
-            System.out.println("test2");
             return (null);
         }
         return (resp);
     }
-   
-    /**
-     *
-     * @param list contains to clear (remove duplicate)
-     * @return list cleared
-     */
-    private ArrayList<Integer> clearList(ArrayList<Integer> list) {
-        Set<Integer> hs = new HashSet<>();
-        hs.addAll(list);
-        list.clear();
-        list.addAll(hs);
-        return (list);
-    }
-
-    /**
-     *
-     * @param id id of a restaurant
-     * @return Object of class Restaurant
-     */
-    private Restaurant getRestaurant(int id) {
-        Restaurant response;
-        try {
-            Session session = sessionFactory.openSession();
-            Query query = session.
-                    createQuery("from Restaurant where idRestaurant = :id");
-            query.setString("id", Integer.toString(id));
-            response = (Restaurant) query.list().get(0);
-            session.close();
-        } catch (Exception e) {
-            e.printStackTrace();
-            return (null);
-        }
-        return response;
-    }
-    
 }

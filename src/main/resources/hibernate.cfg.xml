@@ -12,6 +12,6 @@
     <!--   <property name="hibernate.hbm2ddl.auto">create</property> -->
     <mapping class="eu.epitech.serverandroid.beans.Restaurant"/>
     <mapping class="eu.epitech.serverandroid.beans.Dish"/>
-    <mapping class="eu.epitech.serverandroid.beans.Mark"/>
+    <mapping class="eu.epitech.serverandroid.beans.Mark"/> 
   </session-factory>
 </hibernate-configuration>
