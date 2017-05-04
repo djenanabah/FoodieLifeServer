@@ -43,6 +43,9 @@ public class DishDao {
 
         if ((params == null) || (params.getUser() == null)
                 || (params.getUser().getToken() == null)) {
+            System.out.println(params);
+            System.out.println(params.getUser());
+            System.out.println(params.getUser().getToken());
             response.setMessage("400");
         } else {
             response.setMessage(cd.checkConnection(params.getUser()));

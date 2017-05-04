@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class DishServices {
 
     @RequestMapping(value = "/dish", method = RequestMethod.POST)
-    public String getAllDish(@ModelAttribute Params<Dish> params) {
+    public String getAllDish(@RequestBody Params<Dish> params) {
         DishDao dao = new DishDao();
         return (dao.getAllDish(params));
     }
